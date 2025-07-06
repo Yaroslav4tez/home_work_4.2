@@ -1,18 +1,24 @@
 let userNumbers = prompt("your three numbers");
-userNumbers = userNumbers.trim(userNumbers);
-if (!userNumbers || isNaN(+userNumbers) || userNumbers.length !== 3 ||
-     userNumbers === null || userNumbers.startsWith("0") || !/^\d+$/.test(userNumbers)) {
-    console.log("pleas only numbers or only three numbers");
+
+if (userNumbers === null) {
+    console.log("you canceled input");
 } else {
-    const one = userNumbers[0]; 
-    const too = userNumbers[1];
-    const three = userNumbers[2];
-    
-    if (one === too && too === three) {
-        console.log("всі числа однакові");
-    } else if (one === too || one === three || too === three){
-        console.log("присутні однакові числа");
+    userNumbers = userNumbers.trim();
+    userNumbers = userNumbers.replace(/\s+/g, '');
+    const digitsOnly = userNumbers.startsWith('-') ? userNumbers.slice(1) : userNumbers;
+    if (!/^\d+$/.test(digitsOnly) || digitsOnly.length !== 3) {
+        console.log("pleas only numbers or only three numbers");
     } else {
-    console.log("різні цифри");
+        const one = digitsOnly[0]; 
+        const too = digitsOnly[1];
+        const three = digitsOnly[2];
+        
+        if (one === too && too === three) {
+            console.log("all numbers same");
+        } else if (one === too || one === three || too === three){
+            console.log("some numbers same");
+        } else {
+            console.log("diferent numbers");
+        }
     }
 }
